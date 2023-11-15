@@ -1,17 +1,39 @@
 {
 	"name": "miniscript",
-	"displayName": "MiniScript",
+	"displayName": "ScapinMiniScript",
 	"description": "MiniScript is a 3rd party scripting language asset for Unity",
-	"version": "0.0.3",
-	"publisher": "chaos95",
+	"version": "0.0.1",
+	"publisher": "scapin",
 	"repository": "https://github.com/chaos95/miniscript-syntax",
 	"engines": {
-		"vscode": "^1.27.0"
+		"vscode": "^1.84.0"
 	},
 	"categories": [
 		"Programming Languages"
 	],
+	"preLaunchTask": "${defaultBuildTask}",
+	"activationEvents": [
+		"onC"
+	],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
 	"contributes": {
+		"capabilities": {
+			"hoverProvider": "true"
+		},
+		"commands": [
+			{
+				"command": "miniscript.docs",
+				"title": "Scapin miniscript documentation"
+			}
+		],
 		"languages": [
 			{
 				"id": "miniscript",
@@ -33,15 +55,16 @@
 			}
 		]
 	},
-	"__metadata": {
-		"id": "a0fcab27-f0b6-4b41-a59c-4827b31d92a2",
-		"publisherDisplayName": "Morgan Lokhorst",
-		"publisherId": "ec7cb749-5f48-4b26-b9b4-3d002822cd08",
-		"isPreReleaseVersion": false,
-		"installedTimestamp": 1667208980730,
-		"targetPlatform": "undefined",
-		"isApplicationScoped": false,
-		"updated": false,
-		"preRelease": false
+	"devDependencies": {
+		"@types/mocha": "^10.0.3",
+		"@types/node": "18.x",
+		"@types/vscode": "^1.84.0",
+		"@typescript-eslint/eslint-plugin": "^6.11.0",
+		"@typescript-eslint/parser": "^6.11.0",
+		"@vscode/test-electron": "^2.3.6",
+		"eslint": "^8.52.0",
+		"glob": "^10.3.10",
+		"mocha": "^10.2.0",
+		"typescript": "^5.2.2"
 	}
 }

@@ -55,8 +55,13 @@ function check(document: vscode.TextDocument) {
 
 export function activate(context: vscode.ExtensionContext) {
 
-	const disposable = vscode.commands.registerCommand('miniscript-syntax.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from miniscript-syntax!');
+	path = context.extension.extensionPath;
+
+	const disposable = vscode.commands.registerCommand('miniscript.docs', () => {
+		const panel = vscode.window.createWebviewPanel( 'scriptdoc', 'Scripting Doc',
+			vscode.ViewColumn.One, {});
+		  const doc = fs.readFileSync(path + '/doc.html', 'utf8');
+		  panel.webview.html = doc;
 	});
 	context.subscriptions.push(disposable);
 
@@ -95,8 +100,6 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 		context.subscriptions.push(hover);
 	}
-
-	path = context.extension.extensionPath;
 
 	vscode.workspace.onDidOpenTextDocument(async function (document) {
 		check(document);
